@@ -13,7 +13,7 @@
 		5F49C87A2CE5FBEE005725EC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F49C8792CE5FBEE005725EC /* Preview Assets.xcassets */; };
 		5F49C87C2CE5FBEE005725EC /* Persistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F49C87B2CE5FBEE005725EC /* Persistence.swift */; };
 		5F49C87F2CE5FBEE005725EC /* MyExpenses.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5F49C87D2CE5FBEE005725EC /* MyExpenses.xcdatamodeld */; };
-		954A65A12CE77C7F001F7F5A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 954A65A02CE77C7F001F7F5A /* Launch Screen.storyboard */; };
+		954A65A62CE78F0E001F7F5A /* my expenses.png in Resources */ = {isa = PBXBuildFile; fileRef = 954A65A52CE78F0E001F7F5A /* my expenses.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +24,7 @@
 		5F49C8792CE5FBEE005725EC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		5F49C87B2CE5FBEE005725EC /* Persistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Persistence.swift; sourceTree = "<group>"; };
 		5F49C87E2CE5FBEE005725EC /* MyExpenses.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MyExpenses.xcdatamodel; sourceTree = "<group>"; };
-		954A65A02CE77C7F001F7F5A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		954A65A52CE78F0E001F7F5A /* my expenses.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "my expenses.png"; path = "../../../../Downloads/my expenses.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,10 +57,10 @@
 		5F49C8712CE5FBED005725EC /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
-				954A65A02CE77C7F001F7F5A /* Launch Screen.storyboard */,
 				5F49C8722CE5FBED005725EC /* MyExpensesApp.swift */,
 				5F49C8742CE5FBED005725EC /* ContentView.swift */,
 				5F49C8762CE5FBEE005725EC /* Assets.xcassets */,
+				954A65A52CE78F0E001F7F5A /* my expenses.png */,
 				5F49C87B2CE5FBEE005725EC /* Persistence.swift */,
 				5F49C87D2CE5FBEE005725EC /* MyExpenses.xcdatamodeld */,
 				5F49C8782CE5FBEE005725EC /* Preview Content */,
@@ -134,9 +134,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				954A65A12CE77C7F001F7F5A /* Launch Screen.storyboard in Resources */,
 				5F49C87A2CE5FBEE005725EC /* Preview Assets.xcassets in Resources */,
 				5F49C8772CE5FBEE005725EC /* Assets.xcassets in Resources */,
+				954A65A62CE78F0E001F7F5A /* my expenses.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
