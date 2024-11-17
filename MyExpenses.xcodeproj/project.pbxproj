@@ -59,8 +59,8 @@
 		5F49C8712CE5FBED005725EC /* MyExpenses */ = {
 			isa = PBXGroup;
 			children = (
-				5FA9E6122CEA64EA00C1F6B5 /* AddExpenseView.swift */,
 				5F49C8722CE5FBED005725EC /* MyExpensesApp.swift */,
+				5FA9E6122CEA64EA00C1F6B5 /* AddExpenseView.swift */,
 				5FA71EA62CE62306005FD5EC /* MainContentView.swift */,
 				5F49C8742CE5FBED005725EC /* ContentView.swift */,
 				5F49C8762CE5FBEE005725EC /* Assets.xcassets */,
