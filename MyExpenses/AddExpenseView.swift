@@ -37,7 +37,7 @@ struct AddExpenseView: View {
             }
             .alert(isPresented: $showingErrorAlert) {
                 Alert(
-                    title: Text("Oups, something went wrong!"),
+                    title: Text("Invalid Input!"),
                     message: Text("Please enter a valid amount."),
                     dismissButton: .default(Text("OK"))
                 )
