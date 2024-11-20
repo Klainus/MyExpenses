@@ -17,6 +17,7 @@ struct AddExpenseView: View {
                 Section(header: Text("Expense Details")) {
                     TextField("Title", text: $title)
                     TextField("Category", text: $category)
+                    TextField("Amount", text: $amountString )
                 }
             }
             .navigationTitle("Add Expense")
