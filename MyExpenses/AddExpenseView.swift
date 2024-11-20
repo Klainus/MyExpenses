@@ -1,7 +1,6 @@
 import SwiftUI
 import CoreData
 
-
 struct AddExpenseView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
@@ -10,6 +9,8 @@ struct AddExpenseView: View {
     @State private var title = ""
     @State private var category = ""
     @State private var amountString = ""
+    
+    @State private var showingErrorAlert = false
 
     var body: some View {
         NavigationView {
@@ -17,7 +18,8 @@ struct AddExpenseView: View {
                 Section(header: Text("Expense Details")) {
                     TextField("Title", text: $title)
                     TextField("Category", text: $category)
-                    TextField("Amount", text: $amountString )
+                    TextField("Amount", text: $amountString)
+                        .keyboardType(.decimalPad)
                 }
             }
             .navigationTitle("Add Expense")
@@ -25,7 +27,6 @@ struct AddExpenseView: View {
                 ToolbarItem(placement: .confirmationAction) {
                     Button("Save") {
                         addExpense()
-                        dismiss()
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
@@ -34,22 +35,39 @@ struct AddExpenseView: View {
                     }
                 }
             }
+            .alert(isPresented: $showingErrorAlert) {
+                Alert(
+                    title: Text("Oups, something went wrong!"),
+                    message: Text("Please enter a valid amount."),
+                    dismissButton: .default(Text("OK"))
+                )
+            }
         }
     }
 
     private func addExpense() {
+        // Kontrollera om amountString kan konverteras till en Double
+        guard let amount = Double(amountString), amount > 0 else {
+            // Om inte, visa alert
+            showingErrorAlert = true
+            return
+        }
+
+        // Om konverteringen lyckades, skapa ny utgift och spara
         withAnimation {
             let newExpense = ExpenseEntity(context: viewContext)
             newExpense.date = date
             newExpense.title = title
             newExpense.category = category
-            newExpense.amount = Double(amountString) ?? 0.0
+            newExpense.amount = amount
 
             do {
                 try viewContext.save()
+                dismiss()
             } catch {
                 print("Error saving expense: \(error.localizedDescription)")
             }
         }
     }
 }
+
