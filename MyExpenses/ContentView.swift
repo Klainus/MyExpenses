@@ -87,9 +87,8 @@ private let itemFormatter: DateFormatter = {
 }
 
 
-
 class ViewController: UIViewController {
-    
+
     @IBOutlet weak var backgroundGradientView: UIView!
     
     override func viewDidLoad() {
@@ -107,8 +106,9 @@ class ViewController: UIViewController {
         // Apply the gradient to the backgroundGradientView.
         backgroundGradientView.layer.addSublayer(gradientLayer)
     }
-    
+
     override var shouldAutorotate: Bool {
         return false
     }
+    
 }
