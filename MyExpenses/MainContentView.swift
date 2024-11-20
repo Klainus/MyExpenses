@@ -29,7 +29,7 @@ struct MainContentView: View {
                 }
                 
               
-                Text("Total budget: 100..\(calculateTotal(), specifier: "%.2f")")
+                Text("Total amount spent: \(calculateTotal(), specifier: "%.2f")")
                     .padding()
             }
             .navigationTitle("My Expenses")
