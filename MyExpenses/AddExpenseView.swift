@@ -11,15 +11,24 @@ struct AddExpenseView: View {
     @State private var amountString = ""
     
     @State private var showingErrorAlert = false
+    
+    let categories = ["Food", "Transport", "Shopping", "Entertainment"]
 
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Expense Details")) {
                     TextField("Title", text: $title)
-                    TextField("Category", text: $category)
+
                     TextField("Amount", text: $amountString)
                         .keyboardType(.decimalPad)
+                    Picker("Category", selection: $category)
+                    {
+                        ForEach(categories, id: \.self) {
+                            category in Text(category).tag(category)
+                        }
+                    }.pickerStyle(.menu)
+                    DatePicker("Select a date", selection: $date, displayedComponents: .date)
                 }
             }
             .navigationTitle("Add Expense")

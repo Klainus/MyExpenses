@@ -35,7 +35,7 @@ struct ContentView: View {
                 }
                 .onDelete(perform: deleteExpenses)
             }
-            .navigationTitle("Testing")
+            .navigationTitle("My Expenses")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
