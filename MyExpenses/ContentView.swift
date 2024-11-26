@@ -9,7 +9,13 @@ struct ContentView: View {
         animation: .default)
     private var expenses: FetchedResults<ExpenseEntity>
 
+    @FetchRequest(
+        sortDescriptors: [],
+        animation: .default)
+    private var budgets: FetchedResults<BudgetEntity>
+
     @State private var showingAddExpense = false
+    @State private var showingSetBudget = false
 
     var body: some View {
         NavigationView {
@@ -21,40 +27,56 @@ struct ContentView: View {
                 )
                 .ignoresSafeArea()
 
-                if !expenses.isEmpty {
-                    List {
-                        ForEach(expenses) { expense in
-                            HStack {
-                                VStack(alignment: .leading) {
-                                    Text(expense.title ?? "Untitled")
-                                        .font(.headline)
-                                    Text(expense.category ?? "No category")
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
-                                }
-                                Spacer()
-                                VStack(alignment: .trailing) {
-                                    Text(expense.amount, format: .currency(code: "USD"))
-                                        .font(.headline)
-                                    Text(expense.date ?? Date(), formatter: dateFormatter)
-                                        .font(.subheadline)
-                                        .foregroundColor(.secondary)
+                VStack {
+                    if let budget = budgets.first {
+                        let totalSpent = expenses.reduce(0) { $0 + $1.amount }
+                        let spentString = String(format: "%.2f", totalSpent)
+                        let budgetString = String(format: "%.2f", budget.budget)
+                        
+                        Text("Spent \(spentString) / \(budgetString) (Budget)")
+                            .font(.headline)
+                            .padding()
+                    } else {
+                        Text("Set your budget")
+                            .font(.headline)
+                            .padding()
+                    }
+
+                    if !expenses.isEmpty {
+                        List {
+                            ForEach(expenses) { expense in
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text(expense.title ?? "Untitled")
+                                            .font(.headline)
+                                        Text(expense.category ?? "No category")
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
+                                    Spacer()
+                                    VStack(alignment: .trailing) {
+                                        Text(expense.amount, format: .currency(code: "USD"))
+                                            .font(.headline)
+                                        Text(expense.date ?? Date(), formatter: dateFormatter)
+                                            .font(.subheadline)
+                                            .foregroundColor(.secondary)
+                                    }
                                 }
                             }
+                            .onDelete(perform: deleteExpenses)
                         }
-                        .onDelete(perform: deleteExpenses)
-                    }
-                } else {
-                    VStack {
-                        Image(systemName: "tray")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 100, height: 100)
-                            .foregroundColor(.gray.opacity(0.5))
-                        Text("No expenses yet")
-                            .font(.title2)
-                            .foregroundColor(.gray)
-                            .padding(.top, 8)
+                    } else {
+                        VStack {
+                            Image(systemName: "tray")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 100, height: 100)
+                                .foregroundColor(.gray.opacity(0.5))
+                            Text("No expenses yet")
+                                .font(.title2)
+                                .foregroundColor(.gray)
+                                .padding(.top, 8)
+                        }
                     }
                 }
             }
@@ -69,9 +91,18 @@ struct ContentView: View {
                         Label("Add Expense", systemImage: "plus")
                     }
                 }
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button(action: { showingSetBudget = true }) {
+                        Label("Set Budget", systemImage: "dollarsign.circle")
+                    }
+                }
             }
             .sheet(isPresented: $showingAddExpense) {
                 AddExpenseView()
+                    .environment(\.managedObjectContext, viewContext)
+            }
+            .sheet(isPresented: $showingSetBudget) {
+                SetBudgetView()
                     .environment(\.managedObjectContext, viewContext)
             }
         }
