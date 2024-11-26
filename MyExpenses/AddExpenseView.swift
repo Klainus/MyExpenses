@@ -9,11 +9,11 @@ struct AddExpenseView: View {
     @State private var title = ""
     @State private var category = ""
     @State private var amountString = ""
-    
     @State private var showingErrorAlert = false
     
-    let categories = ["Food", "Transport", "Shopping", "Entertainment"]
+    let categories = ["Food", "Transport", "Shopping", "Entertainment", "Other"]
 
+    
     var body: some View {
         NavigationView {
             Form {
@@ -21,7 +21,7 @@ struct AddExpenseView: View {
                     TextField("Title", text: $title)
 
                     TextField("Amount", text: $amountString)
-                        .keyboardType(.decimalPad)
+                        .keyboardType(.numberPad)
                     Picker("Category", selection: $category)
                     {
                         ForEach(categories, id: \.self) {

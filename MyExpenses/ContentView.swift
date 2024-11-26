@@ -13,32 +13,49 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            List {
-                ForEach(expenses) { expense in
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(expense.title ?? "Untitled")
-                                .font(.headline)
-                            Text(expense.category ?? "No category")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+            ZStack { Color("BackgroundColor").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+                if !expenses.isEmpty {
+                    List {
+                        ForEach(expenses) { expense in
+                            HStack {
+                                VStack(alignment: .leading) {
+                                    Text(expense.title ?? "Untitled")
+                                        .font(.headline)
+                                    Text(expense.category ?? "No category")
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
+                                Spacer()
+                                VStack(alignment: .trailing) {
+                                    Text(expense.amount, format: .currency(code: "USD"))
+                                        .font(.headline)
+                                    Text(expense.date ?? Date(), formatter: dateFormatter)
+                                        .font(.subheadline)
+                                        .foregroundColor(.secondary)
+                                }
+                            }
                         }
-                        Spacer()
-                        VStack(alignment: .trailing) {
-                            Text(expense.amount, format: .currency(code: "USD"))
-                                .font(.headline)
-                            Text(expense.date ?? Date(), formatter: dateFormatter)
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
-                        }
+                        .onDelete(perform: deleteExpenses)
+                    }
+                } else {
+                    VStack {
+                        Image(systemName: "tray")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 100, height: 100)
+                            .foregroundColor(.gray.opacity(0.5))
+                        Text("No expenses yet")
+                            .font(.title2)
+                            .foregroundColor(.gray)
+                            .padding(.top, 8)
                     }
                 }
-                .onDelete(perform: deleteExpenses)
             }
             .navigationTitle("My Expenses")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
+                        .disabled(expenses.isEmpty)
                 }
                 ToolbarItem {
                     Button(action: { showingAddExpense = true }) {
@@ -50,8 +67,6 @@ struct ContentView: View {
                 AddExpenseView()
                     .environment(\.managedObjectContext, viewContext)
             }
-            Text("No expenses yet")
-                .opacity(expenses.isEmpty ? 1 : 0)
         }
     }
 

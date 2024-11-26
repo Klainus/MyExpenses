@@ -14,7 +14,7 @@ struct MyExpensesApp: App {
     var body: some Scene {
         WindowGroup {
             //change "view" to to different file name to boot into it as "main"
-            MainContentView()
+            ContentView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
