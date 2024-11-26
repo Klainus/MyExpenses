@@ -13,7 +13,14 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            ZStack { Color("BackgroundColor").edgesIgnoringSafeArea(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/)
+            ZStack {
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue.opacity(0.2), Color.gray.opacity(0.2)]),
+                    startPoint: .top,
+                    endPoint: .bottomTrailing
+                )
+                .ignoresSafeArea()
+
                 if !expenses.isEmpty {
                     List {
                         ForEach(expenses) { expense in
